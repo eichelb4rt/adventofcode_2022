@@ -17,12 +17,12 @@ SHAPE_SCORE = {
 }
 
 
+def get_matches(lines: list[str]) -> list[str]:
+    return [line.rstrip() for line in lines]
+
+
 def score(match: str) -> int:
-    # match is a line in format: `A X\n`.
-    match = match.rstrip()
-    # ignore empty lines
-    if len(match) == 0:
-        return 0
+    # match is in format: `A X`
     enemy_shape = match[0]
     player_shape = match[-1]
     return SHAPE_SCORE[player_shape] + OUTCOME[(enemy_shape, player_shape)]
@@ -30,9 +30,10 @@ def score(match: str) -> int:
 
 def total_score(input_file: str) -> int:
     with open(input_file, 'r') as f:
-        matches = f.readlines()
+        matches = get_matches(f.readlines())
     total_score = sum([score(match) for match in matches])
     return total_score
+
 
 def main():
     assert total_score("test_input.txt") == 15
