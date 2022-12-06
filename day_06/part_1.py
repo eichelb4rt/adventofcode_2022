@@ -6,7 +6,7 @@ def start_of_signal(input_file: str) -> int:
         datastream = f.read().rstrip()
 
     for i in range(START_OF_SIGNAL_LENGTH, len(datastream) + 1):
-        # start = 4 -> datastream[0, 1, 2, 3]
+        # i = 4 -> datastream[0, 1, 2, 3]
         buffer = datastream[i - START_OF_SIGNAL_LENGTH:i]
         # if all letters are unique
         if len(set(buffer)) == START_OF_SIGNAL_LENGTH:
